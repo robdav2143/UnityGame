@@ -4,12 +4,12 @@ using System.Collections;
 [RequireComponent(typeof(PlayerPhysics))]
 public class EasyMove : MonoBehaviour {
 
+    public float gravity = 20;
     public float Speed = 8;
     public float acceleration = 12;
 
     public float currentSpeed;
     public float targetSpeed;
-
     private Vector2 amountToMove;
 
     private PlayerPhysics playerPhysics;
@@ -25,7 +25,8 @@ public class EasyMove : MonoBehaviour {
         targetSpeed = Input.GetAxisRaw("Horizontal") * Speed;
         currentSpeed = incrementTowards(currentSpeed, targetSpeed, acceleration);
 
-        amountToMove = new Vector2(currentSpeed, 0);
+        amountToMove.x = currentSpeed;
+        amountToMove.y -= gravity * Time.deltaTime;
         playerPhysics.Move(amountToMove * Time.deltaTime);
     }
 
